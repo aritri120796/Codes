@@ -1,0 +1,76 @@
+#include<iostream>
+#include<list>
+using namespace std;
+int d=0;
+class Graph{
+  int v;
+  list<int>* adj;
+  public:
+  Graph(int v);
+  void add(int u,int v);
+  void DFS(int s);
+  void DFS_V(int u,int start[],int end[]);
+    
+};
+
+Graph:: Graph(int v){
+    this->v=v;
+    this->adj=new list<int>[v];
+}
+
+void Graph:: add(int u,int v){
+    adj[u].push_back(v);adj[v].push_back(u);
+}
+
+void Graph:: DFS_V(int u,int start[],int end[]){
+    if(start[u]==-1)
+        start[u]=d++;
+    list<int>::iterator i;
+    for(i=adj[u].begin();i!=adj[u].end();++i){
+        if(start[*i]==-1)
+            DFS_V(*i,start,end);
+    }
+    //d=d+1;
+    end[u]=d;
+    d=d+1;
+    cout<<d<<endl;
+    return;
+}
+
+void Graph:: DFS(int s){
+    int start[v],end[v];
+    for(int i=0;i<v;i++){
+        start[i]=end[i]=-1;
+    }
+    
+    start[s]=d++;
+    
+    for(int i=0;i<v;i++){
+        if(start[i]==-1){
+            DFS_V(i,start,end);
+        }
+    }
+    end[s]=d++;
+    for(int i=0;i<v;i++){
+        cout << " U: " << i << "-start- " <<start[i]<<"-end-"<<end[i]<< endl;
+    }
+}
+
+int main(){
+    Graph g(4); 
+    g.add(0, 1); 
+    g.add(0, 2); 
+    g.add(1, 2); 
+    g.add(2, 0); 
+    g.add(2, 3); 
+    g.add(3, 3); 
+  
+    cout << "Following is Depth First Traversal"
+            " (starting from vertex 2) \n"; 
+    g.DFS(0); 
+  
+    return 0; 
+}
+
+
+

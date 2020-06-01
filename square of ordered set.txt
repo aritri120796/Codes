@@ -1,0 +1,41 @@
+#include <iostream>
+#include<algorithm>
+#include <vector>
+#include <math.h>
+using namespace std;
+
+vector<int> return_sq(vector<int> arr){
+	vector<int> x;
+	int l,r;
+	r=arr.size()-1;
+	l=0;
+	while(l<=r){
+		if(abs(arr[l])>abs(arr[r])){
+			x.push_back(arr[l]*arr[l]);
+			l++;
+		}
+		else{
+			x.push_back(arr[r]*arr[r]);
+			r--;
+		}
+	}
+		 std::reverse(std::begin(x), std::end(x));
+		 for(int i=0;i<arr.size();i++)
+			cout<<x[i]<<" ";
+		 
+		 return x;
+			
+}
+	
+
+
+int main() {
+
+vector<int>arr;
+arr.push_back(-1);
+arr.push_back(-2);
+arr.push_back(-3);
+arr=return_sq(arr);
+
+	return 0;
+}
